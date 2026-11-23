@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ 우주 최고의 낭만가 '이승훈2'을 소개합니다! ✨</title>
+    <style>
+        /* Base Reset & Design Tokens */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        :root {
+            --bg-color: #120412;
+            --card-bg: rgba(255, 200, 230, 0.08);
+            --card-border: rgba(255, 150, 200, 0.2);
+            --text-main: #ffffff;
+            --text-sub: #f3cedf;
+            --accent-purple: #d63031;
+            --accent-pink: #ff7675;
+            --accent-pink-glow: rgba(255, 118, 117, 0.5);
+            --gold: #ffeaa7;
+            --container-bg: rgba(35, 10, 30, 0.7);
+            --btn-hover: #e84393;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #fff0f5;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-border: rgba(255, 182, 193, 0.4);
+            --text-main: #4a1525;
+            --text-sub: #7a354b;
+            --accent-purple: #fd79a8;
+            --accent-pink: #e84393;
+            --accent-pink-glow: rgba(232, 67, 147, 0.2);
+            --gold: #d63031;
+            --container-bg: rgba(255, 255, 255, 0.92);
+            --btn-hover: #fd79a8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 121, 198, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(232, 67, 147, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(162, 155, 254, 0.15) 0%, transparent 60%);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            position: relative;
+        }
+
+        /* Canvas for Space Background & Mouse Trail */
+        #space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        #sparkle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        /* Theme Toggle Button */
+        .top-nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            font-size: 0.95rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-pink-glow);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px 20px 80px 20px;
+        }
+
+        /* Common Section Box */
+        .section-box {
+            background: var(--container-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            padding: 35px 25px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold);
+        }
+
+        /* Header & Bouncing Name */
+        header {
+            text-align: center;
+        }
+
+        .space-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(232, 67, 147, 0.4);
+        }
+
+        .bouncing-nickname span {
+            display: inline-block;
+            animation: bounce 1.8s infinite ease-in-out;
+            background: linear-gradient(45deg, #ff9ff3, #feca57, #ff6b6b, #fd79a8);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bouncing-nickname span:nth-child(1) { animation-delay: 0.0s; }
+        .bouncing-nickname span:nth-child(2) { animation-delay: 0.2s; }
+        .bouncing-nickname span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            word-break: keep-all;
+            line-height: 1.6;
+        }
+
+        /* Visitor Welcome Section */
+        .welcome-input-group {
+            display: flex;
+            gap: 10px;
+            max-width: 450px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .welcome-input-group input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 18px;
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+
+        .welcome-input-group input:focus {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 10px var(--accent-pink-glow);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .welcome-msg {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--gold);
+            min-height: 28px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* 3D Flip Cards (Likes) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            perspective: 1000px;
+        }
+
+        .card-item {
+            height: 240px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            border-radius: 20px;
+        }
+
+        .card-item.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .card-front {
+            background: var(--card-bg);
+        }
+
+        .card-front .icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .card-item:hover .card-front .icon {
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        .card-front h3 {
+            font-size: 1.3rem;
+            color: var(--text-main);
+        }
+
+        .card-front .hint {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin-top: 8px;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, rgba(253, 121, 168, 0.35), rgba(232, 67, 147, 0.35));
+            transform: rotateY(180deg);
+            word-break: keep-all;
+            line-height: 1.5;
+        }
+
+        .card-back p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* OX Quiz Section */
+        .quiz-container {
+            text-align: center;
+        }
+
+        .quiz-question {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 14px;
+        }
+
+        .quiz-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .ox-btn {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: none;
+            font-size: 2.2rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .ox-o {
+            background: linear-gradient(135deg, #10ac84, #1dd1a1);
+        }
+
+        .ox-x {
+            background: linear-gradient(135deg, #ee5253, #ff6b6b);
+        }
+
+        .ox-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .quiz-feedback {
+            font-size: 1.1rem;
+            font-weight: bold;
+            min-height: 30px;
+            margin-top: 10px;
+        }
+
+        .wrong-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        /* Random Cheer Section */
+        .cheer-box {
+            text-align: center;
+        }
+
+        .cheer-display {
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--gold);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 1px dashed var(--card-border);
+            word-break: keep-all;
+        }
+
+        /* Click Mini-Game Section */
+        .game-box {
+            text-align: center;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .stat-item span {
+            color: var(--gold);
+            font-size: 1.4rem;
+        }
+
+        .click-target-btn {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid #fd79a8;
+            background: linear-gradient(135deg, #ff9ff3, #ff7675);
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(232, 67, 147, 0.4);
+            transition: transform 0.05s ease;
+            margin: 0 auto 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .click-target-btn:active {
+            transform: scale(0.92);
+        }
+
+        .game-result {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-purple);
+            min-height: 25px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 15px 60px 15px;
+            }
+            
+            .section-box {
+                padding: 25px 18px;
+            }
+
+            .ox-btn {
+                width: 75px;
+                height: 75px;
+                font-size: 1.8rem;
+            }
+
+            .click-target-btn {
+                width: 120px;
+                height: 120px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+<style data-studio="css">
+:root{--st-accent:#e2557a}
+.st-nav{position:sticky;top:0;z-index:50;width:100%;box-sizing:border-box;background:#fff;background:rgba(255,255,255,.93);backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,.08)}
+.st-nav-in{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:10px 12px;max-width:960px;margin:0 auto}
+.st-nav-a{display:inline-block;padding:8px 14px;border-radius:999px;text-decoration:none;color:#333;font-weight:700;font-size:15px;line-height:1.2}
+.st-nav-a:hover{background:rgba(0,0,0,.06)}
+.st-nav-a.is-on{background:var(--st-accent);color:#fff}
+.st-sec{box-sizing:border-box;width:100%;max-width:960px;margin:24px auto;padding:20px}
+.st-h{font-size:1.6rem;font-weight:800;line-height:1.3;margin:0 0 12px}
+.st-p{font-size:1rem;line-height:1.75;margin:0 0 12px}
+.st-btn{display:inline-block;padding:12px 22px;border-radius:12px;background:var(--st-accent);color:#fff!important;text-decoration:none;font-weight:700;font-size:1rem;line-height:1.2;border:0;cursor:pointer;margin:4px}
+.st-btn:hover{filter:brightness(1.08)}
+.st-img{margin:16px auto;text-align:center}
+.st-img img{display:inline-block;width:100%;max-width:100%;height:auto;border-radius:12px}
+.st-hero{text-align:center;padding:48px 20px;border-radius:20px;background:#f6f6f6;background:color-mix(in srgb,var(--st-accent) 12%,#fff)}
+.st-hero .st-h{font-size:2rem}
+.st-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.st-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-align:left}
+.st-ico{font-size:2rem;line-height:1;margin:0 0 8px}
+.st-card .st-h{font-size:1.15rem;margin:0 0 6px}
+.st-card .st-p{margin:0;font-size:.95rem}
+.st-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:center}
+@media(max-width:600px){.st-split{grid-template-columns:1fr}}
+.st-split img{display:block;width:100%;height:auto;border-radius:16px}
+.st-list{margin:0;padding-left:1.3em;line-height:1.9}
+.st-hr{border:0;border-top:2px dashed rgba(0,0,0,.15);margin:28px auto;max-width:960px}
+.st-foot{text-align:center;font-size:.875rem;opacity:.7;padding:24px 12px}
+.st-tab-bar{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid rgba(0,0,0,.08);margin-bottom:14px}
+.st-tab{border:0;background:none;padding:10px 14px;font:inherit;font-weight:700;color:inherit;opacity:.6;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.st-tab.is-on{opacity:1;color:var(--st-accent);border-bottom-color:var(--st-accent)}
+.st-acc{border:1px solid rgba(0,0,0,.1);border-radius:12px;margin:8px 0;background:#fff;overflow:hidden;text-align:left}
+.st-acc summary{cursor:pointer;padding:14px 44px 14px 16px;font-weight:700;list-style:none;position:relative}
+.st-acc summary::-webkit-details-marker{display:none}
+.st-acc summary::after{content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:1.3em;color:var(--st-accent)}
+.st-acc[open] summary::after{content:"\2212"}
+.st-acc>.st-p{padding:0 16px 14px;margin:0}
+.st-pop{margin:12px 0;text-align:center}
+.st-modal{border:0;border-radius:18px;padding:24px;width:min(480px,90vw);box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:left;color:#222}
+.st-modal::backdrop{background:rgba(0,0,0,.45)}
+.st-slider{position:relative}
+.st-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:16px}
+.st-slides::-webkit-scrollbar{display:none}
+.st-slide{flex:0 0 100%;scroll-snap-align:start;margin:0}
+.st-slide img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:16px}
+.st-slide figcaption{text-align:center;padding:8px;font-size:.95rem}
+.st-prev,.st-next{position:absolute;top:calc(50% - 40px);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:24px;line-height:1;cursor:pointer;color:#333}
+.st-prev{left:10px}.st-next{right:10px}
+.st-dots{display:flex;justify-content:center;gap:8px;margin-top:4px}
+.st-dots button{width:10px;height:10px;border-radius:50%;border:0;background:rgba(0,0,0,.2);padding:0;cursor:pointer}
+.st-dots button.is-on{background:var(--st-accent)}
+.st-quiz{text-align:center}
+.st-q{font-size:1.25rem;font-weight:800;margin:0 0 14px}
+.st-opts{display:grid;gap:8px;max-width:420px;margin:0 auto}
+.st-opt{padding:12px 16px;border-radius:12px;border:2px solid rgba(0,0,0,.12);background:#fff;font:inherit;font-weight:700;cursor:pointer;color:#222}
+.st-opt.is-ok{border-color:#2f9e5b;background:#e9f7ef}.st-opt.is-no{border-color:#d9475a;background:#fdecee}
+.st-qr{min-height:1.6em;font-weight:700;margin:12px 0 0}
+.st-ci{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid rgba(0,0,0,.08);border-radius:10px;margin:6px 0;background:#fff;cursor:pointer;text-align:left;color:#222}
+.st-ci input{width:20px;height:20px;flex:none;accent-color:var(--st-accent)}
+.st-bar{height:10px;border-radius:99px;background:rgba(0,0,0,.08);overflow:hidden;margin-top:12px}
+.st-bar i{display:block;height:100%;width:0;background:var(--st-accent);transition:width .3s}
+.st-cnt{font-size:.9rem;opacity:.75;margin:6px 0 0}
+.st-dday,.st-timer{text-align:center;border-radius:20px;background:#f6f6f6;background:color-mix(in srgb,var(--st-accent) 10%,#fff)}
+.st-dlabel,.st-tlabel{margin:0;font-weight:700;opacity:.8}
+.st-dnum,.st-tnum{margin:4px 0 8px;font-size:3rem;font-weight:900;color:var(--st-accent);font-variant-numeric:tabular-nums;line-height:1.2}
+.st-tnum.is-done{animation:stblink 1s 3}@keyframes stblink{50%{opacity:.2}}
+.st-embed iframe{display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;border-radius:14px}
+.st-embed[data-kind=map] iframe{aspect-ratio:4/3}
+.st-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:12px 0}
+.st-row>*{margin-top:0;margin-bottom:0}.st-row>.st-img,.st-row>img{flex:1 1 160px;min-width:0}
+.st-cols{display:grid;gap:16px}
+.st-c2{grid-template-columns:repeat(2,minmax(0,1fr))}.st-c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:600px){.st-c2,.st-c3{grid-template-columns:1fr}}
+.st-col{min-width:0}
+.st-swipe{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 4px 14px;-webkit-overflow-scrolling:touch}
+.st-swipe>*{flex:0 0 min(72%,240px);box-sizing:border-box;scroll-snap-align:start}
+.st-nav-i{margin-right:5px}
+@media(max-width:600px){.st-nav-tab{position:fixed;top:auto;bottom:0;left:0;border-bottom:0;border-top:1px solid rgba(0,0,0,.1);padding-bottom:env(safe-area-inset-bottom)}.st-nav-tab .st-nav-in{flex-wrap:nowrap;justify-content:space-around;gap:0;padding:4px}.st-nav-tab .st-nav-a{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:12px;border-radius:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.st-nav-tab .st-nav-a.is-on{background:none;color:var(--st-accent)}.st-nav-tab .st-nav-i{margin:0;font-size:22px;line-height:1.1}}
+.st-g-point{--st-g:linear-gradient(135deg,rgba(255,255,255,0),rgba(255,255,255,.45)),linear-gradient(var(--st-accent),var(--st-accent));--st-gi:#fff}.st-g-sunset{--st-g:linear-gradient(135deg,#f43f5e,#f97316);--st-gi:#fff}.st-g-ocean{--st-g:linear-gradient(135deg,#2563eb,#06b6d4);--st-gi:#fff}.st-g-grape{--st-g:linear-gradient(135deg,#7c3aed,#ec4899);--st-gi:#fff}.st-g-forest{--st-g:linear-gradient(135deg,#047857,#34d399);--st-gi:#fff}.st-g-night{--st-g:linear-gradient(135deg,#0f172a,#475569);--st-gi:#fff}.st-g-peach{--st-g:linear-gradient(135deg,#ffe4e6,#fef3c7);--st-gi:#222}.st-g-mint{--st-g:linear-gradient(135deg,#d1fae5,#dbeafe);--st-gi:#222}.st-g-lav{--st-g:linear-gradient(135deg,#ede9fe,#fce7f3);--st-gi:#222}
+html body [class*="st-g-"]{background-image:var(--st-g);color:var(--st-gi)}
+html body .st-gtx{color:transparent;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.st-hv-lift,.st-hv-grow,.st-hv-glow,.st-hv-press{transition:translate .2s,scale .2s,box-shadow .2s}
+@media(hover:hover){.st-hv-lift:hover{translate:0 -6px;box-shadow:0 14px 28px rgba(0,0,0,.18)}.st-hv-grow:hover{scale:1.04}.st-hv-glow:hover{box-shadow:0 8px 24px rgba(0,0,0,.25);box-shadow:0 0 0 3px color-mix(in srgb,var(--st-accent) 35%,transparent),0 8px 24px color-mix(in srgb,var(--st-accent) 45%,transparent)}}
+.st-hv-press:active{scale:.95}
+html.st-js [data-st-in]{opacity:0;transition:opacity .6s ease,transform .6s ease,translate .2s,scale .2s,box-shadow .2s}
+html.st-js [data-st-in="up"]{transform:translateY(26px)}html.st-js [data-st-in="zoom"]{transform:scale(.9)}html.st-js [data-st-in="left"]{transform:translateX(-30px)}
+html.st-js [data-st-in].is-in{opacity:1;transform:none}
+html.st-editing [data-st-in]{opacity:1!important;transform:none!important}
+.st-editing .st-swipe{flex-wrap:wrap;overflow:visible}
+html.st-dark{filter:invert(1) hue-rotate(180deg);background:#fff}
+html.st-dark img,html.st-dark video,html.st-dark iframe,html.st-dark canvas{filter:invert(1) hue-rotate(180deg)}
+.st-editing .st-tab-panel{display:block!important;outline:2px dashed rgba(0,0,0,.18);outline-offset:4px;margin:12px 0}
+.st-dform{max-width:560px;text-align:left}
+.st-fl{display:block;margin:0 0 12px}
+.st-fl>span{display:block;font-weight:700;font-size:.92rem;margin-bottom:4px}
+.st-fl input,.st-fl select,.st-fl textarea{box-sizing:border-box;width:100%;padding:11px 12px;border:1.5px solid rgba(0,0,0,.25);border-radius:10px;font:inherit;font-size:1rem;background:#fff;color:#222}
+.st-fl textarea{min-height:84px;resize:vertical}
+.st-fl .st-rg{display:flex;flex-wrap:wrap;gap:8px}
+.st-fl .st-rg label{display:inline-block;margin:0}
+.st-fl .st-rg input{position:absolute;opacity:0;width:1px;height:1px;padding:0;border:0}
+.st-fl .st-rg label>span{display:inline-block;padding:9px 15px;border:1.5px solid rgba(0,0,0,.25);border-radius:999px;cursor:pointer;font-size:1rem;background:#fff;font-weight:400;margin:0}
+.st-fl .st-rg input:checked+span{background:var(--st-accent);color:#fff;border-color:var(--st-accent);font-weight:700}
+.st-fl .st-rg input:focus-visible+span{outline:2px solid var(--st-accent);outline-offset:2px}
+.st-uw{display:flex;align-items:center;gap:10px}
+.st-fl .st-uw input{flex:1;min-width:0}
+.st-fl .st-uw input[type=range]{padding:0;border:0;accent-color:var(--st-accent);background:transparent}
+.st-u,.st-rv{font-weight:800;min-width:1.6em;text-align:right}
+.st-dl-ctl{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.st-dl-q{flex:1 1 160px;min-width:0;box-sizing:border-box;padding:9px 12px;border:1.5px solid rgba(0,0,0,.25);border-radius:10px;font:inherit;background:#fff;color:#222}
+.st-dl-f{display:flex;flex-wrap:wrap;gap:6px}
+.st-dl-fb{padding:7px 13px;border-radius:999px;border:1.5px solid rgba(0,0,0,.25);background:#fff;font:inherit;font-size:.9rem;cursor:pointer;color:#333}
+.st-dl-fb.is-on{background:var(--st-accent);color:#fff;border-color:var(--st-accent);font-weight:700}
+.st-fl input:focus,.st-fl select:focus,.st-fl textarea:focus{outline:2px solid var(--st-accent);outline-offset:1px}
+.st-fmsg{min-height:1.4em;margin:6px 0 0;font-size:.95rem;font-weight:700}
+.st-dl-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.st-dl-rf{padding:8px 14px;border-radius:10px;border:1.5px solid rgba(0,0,0,.25);background:#fff;font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;color:#333}
+.st-dl-out{display:grid;gap:10px;text-align:left}
+.st-dl-i{border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:12px 14px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.st-dl-i p{margin:3px 0;word-break:break-word;line-height:1.5}
+.st-dl-i .st-t{font-weight:800}
+.st-dl-i .st-k{font-size:.8rem;color:#666;margin-right:6px}
+.st-dl-i .st-sm{font-size:.8rem;color:#777}
+.st-dl-b .st-dl-i{border-radius:4px 18px 18px 18px;background:rgba(0,0,0,.045);box-shadow:none;border:0;max-width:92%}
+.st-dl-tw{overflow-x:auto}
+.st-dl-t{width:100%;border-collapse:collapse;font-size:.95rem}
+.st-dl-t th,.st-dl-t td{padding:9px 10px;border-bottom:1px solid rgba(0,0,0,.12);text-align:left;white-space:nowrap}
+.st-dl-t th{background:rgba(0,0,0,.05)}
+.st-del{margin-top:4px;padding:6px 12px;border-radius:8px;border:1.5px solid rgba(0,0,0,.25);background:#fff;font:inherit;font-size:.85rem;cursor:pointer;color:#b91c1c;font-weight:700}
+.st-dmsg{margin:8px 0 0;font-size:.9rem;color:#666}
+.st-dstat{text-align:center}
+.st-ds-num{font-size:2.6rem;font-weight:900;color:var(--st-accent);margin:4px 0;line-height:1.2}
+.st-ds-bars{display:grid;gap:8px;text-align:left;max-width:560px;margin:10px auto 0}
+.st-ds-row{display:grid;grid-template-columns:minmax(72px,30%) 1fr auto;gap:8px;align-items:center;font-size:.95rem}
+.st-ds-row>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.st-ds-bar{height:18px;background:rgba(0,0,0,.09);border-radius:9px;overflow:hidden}
+.st-ds-bar i{display:block;height:100%;background:var(--st-accent);border-radius:9px;transition:width .5s}
+.st-dset>.st-sec{margin-top:16px;margin-bottom:16px}
+.st-editing .st-del{display:none}
+.st-editing .st-slides{flex-wrap:wrap;gap:10px;overflow:visible}
+.st-editing .st-prev,.st-editing .st-next{display:none}
+.st-editing dialog.st-modal{display:block;position:static;margin:12px auto;outline:2px dashed rgba(0,0,0,.25)}
+.st-editing .st-embed iframe{pointer-events:none}
+</style></head>
+<body>
+
+    <!-- Space Particle Canvas -->
+    <canvas id="space-canvas"></canvas>
+    <!-- Mouse Trail Canvas -->
+    <canvas id="sparkle-canvas"></canvas>
+
+    <!-- Theme Toggle Bar -->
+    <div class="top-nav">
+        <button class="theme-btn" id="theme-toggle" aria-label="화면 테마 변경">
+            <span id="theme-icon">🌙</span>
+            <span id="theme-text">모드 변경</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="section-box">
+            <div class="space-badge">🚀 EXPLORE MY UNIVERSE</div>
+            <h1 class="bouncing-nickname">
+                <span>이</span>
+                <span>승</span>
+                <span>훈</span>
+            </h1>
+            <p class="subtitle">반짝이는 별빛처럼 무한한 호기심으로 우주를 항해 중인 개발자 지망생! 저의 비밀 우주에 오신 것을 환영합니다. ✨</p>
+        </header>
+
+        <!-- Visitor Welcome Section -->
+        <section class="section-box">
+            <div class="section-title">🛸 방문자 우주선 탑승 승인</div>
+            <div style="text-align: center;">
+                <p style="margin-bottom: 15px; color: var(--text-sub);">탑승객의 이름을 입력하시면 우주선 승인서가 발급됩니다!</p>
+                <div class="welcome-input-group">
+                    <input type="text" id="visitor-name" placeholder="이름을 입력해 주세요!" maxlength="15" autocomplete="off">
+                    <button class="btn-primary" id="btn-welcome">탑승하기</button>
+                </div>
+                <div class="welcome-msg" id="welcome-msg"></div>
+            </div>
+        </section>
+
+        <!-- 3D Flip Cards: Likes -->
+        <section class="section-box">
+            <div class="section-title">⭐ 내가 좋아하는 3가지 (카드 클릭!)</div>
+            <div class="cards-grid">
+                <!-- Card 1: Game -->
+                <div class="card-item" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="icon">🎮</div>
+                            <h3>게임 (Game)</h3>
+                            <div class="hint">👆 터치하여 뒤집기</div>
+                        </div>
+                        <div class="card-back">
+                            <p>🎮 <b>좋아하는 이유:</b><br><br>화면 속에서 새로운 우주를 탐험할 수 있기 때문이죠! 가상 세계의 고수가 되어 평화를 지키는 쾌감은 최고입니다!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Movie -->
+                <div class="card-item" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="icon">🎬</div>
+                            <h3>영화 (Movie)</h3>
+                            <div class="hint">👆 터치하여 뒤집기</div>
+                        </div>
+                        <div class="card-back">
+                            <p>🎬 <b>좋아하는 이유:</b><br><br>팝콘 한 통과 함께 2시간 동안 완전히 다른 사람의 삶이나 우주 전쟁 속으로 여행을 떠날 수 있어서 사랑합니다!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Cat -->
+                <div class="card-item" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="icon">🐱</div>
+                            <h3>고양이 (Cat)</h3>
+                            <div class="hint">👆 터치하여 뒤집기</div>
+                        </div>
+                        <div class="card-back">
+                            <p>🐱 <b>좋아하는 이유:</b><br><br>귀여움으로 우주를 정복한 생물체! 도도하다가도 골골송을 불러줄 때 모든 피로가 은하수 너머로 날아갑니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OX Quiz -->
+        <!-- ▼ 방명록·OX 투표 (4차시) ▼ --><sb-widget id="sb-web" style="display:block;width:100%;max-width:640px;margin:32px auto;flex:1 1 100%;grid-column:1/-1;align-self:stretch;box-sizing:border-box"></sb-widget><script>
+(function () {
+  var C = {"id":"sb-web","url":"https://script.google.com/macros/s/AKfycbyxYQS1ivXKTuUQ9YEwEig_Vxhi2YxRi5ovtqsB05U-riW9_uk_qRrK4yo_yBp5dTA-/exec","q":"나는 게임을 잘한다","title":"방명록","sel":"","pos":"before"};
+  var host = document.getElementById(C.id);
+  if (!host || host.sbReady) return;
+  host.sbReady = true;
+  var PREVIEW = !!window.__SB_PREVIEW;
+
+  function place() {
+    if (!C.sel) return;
+    var t = null;
+    try { t = document.querySelector(C.sel); } catch (e) {}
+    if (!t || t === host || t.contains(host) || !t.parentNode) return;
+    if (C.pos === 'before') { if (t.previousElementSibling !== host) t.parentNode.insertBefore(host, t); }
+    else if (t.nextElementSibling !== host) t.parentNode.insertBefore(host, t.nextSibling);
+  }
+
+  function rgb(s) { var m = (s || '').match(/[\d.]+/g); return m ? m.map(Number) : null; }
+  function lum(c) { return (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255; }
+  function pageBg() {
+    var el = host.parentElement;
+    while (el) { var c = rgb(getComputedStyle(el).backgroundColor); if (c && (c.length < 4 || c[3] > 0.5)) return c; el = el.parentElement; }
+    return [255, 255, 255];
+  }
+  function accent() {
+    var els = document.querySelectorAll('button, .btn, a, h1, h2');
+    for (var i = 0; i < els.length && i < 60; i++) {
+      if (host.contains(els[i])) continue;
+      var cs = getComputedStyle(els[i]);
+      var list = [cs.backgroundColor, cs.color];
+      for (var j = 0; j < 2; j++) {
+        var c = rgb(list[j]);
+        if (!c || (c.length > 3 && c[3] < 0.5)) continue;
+        var mx = Math.max(c[0], c[1], c[2]), mn = Math.min(c[0], c[1], c[2]);
+        if (mx - mn > 60 && lum(c) > 0.2 && lum(c) < 0.8) return 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')';
+      }
+    }
+    return '#E5486F';
+  }
+
+  var root = host.attachShadow ? host.attachShadow({ mode: 'open' }) : host;
+  root.innerHTML = '<' + 'style>' +
+    '.wrap{display:flex;flex-direction:column;gap:16px}' +
+    '.card{box-sizing:border-box;font-family:inherit;font-size:16px;line-height:1.6;text-align:left;border-radius:16px;padding:20px;background:rgba(255,255,255,.94);color:#222;border:1px solid rgba(0,0,0,.1);box-shadow:0 4px 18px rgba(0,0,0,.08)}' +
+    '.dark .card{background:rgba(20,20,28,.9);color:#f3f3f6;border-color:rgba(255,255,255,.18)}' +
+    '.card *{box-sizing:border-box;font-family:inherit}' +
+    'h3{margin:0 0 12px;font-size:20px;line-height:1.35;color:inherit}' +
+    '.row{display:flex;gap:8px;flex-wrap:wrap}' +
+    'input,textarea{flex:1 1 140px;min-width:0;font-size:16px;padding:10px 12px;border-radius:10px;border:1px solid #ccc;background:#fff;color:inherit}' +
+    '.dark input,.dark textarea{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}' +
+    'textarea{flex-basis:100%;resize:vertical;min-height:70px}' +
+    'button{font-size:16px;font-weight:700;border:0;border-radius:10px;padding:10px 18px;cursor:pointer;background:var(--a,#E5486F);color:#fff}' +
+    'button:disabled{opacity:.45;cursor:default}' +
+    '.msg{margin:8px 0 0;font-size:14px;min-height:1em;opacity:.85}' +
+    '.list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;max-height:340px;overflow:auto}' +
+    '.list li{padding:10px 12px;border-radius:10px;background:rgba(0,0,0,.04);word-break:break-all}.dark .list li{background:rgba(255,255,255,.07)}' +
+    '.list b{margin-right:6px}.list small{opacity:.6;font-size:12px}.list p{margin:2px 0 0;white-space:pre-wrap}' +
+    '.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;font-size:14px;opacity:.85}' +
+    '.top .re{background:transparent;color:inherit;border:1px solid currentColor;padding:4px 10px;font-size:13px;font-weight:400;opacity:.8}' +
+    '.live{display:inline-flex;align-items:center;gap:6px}.live:before{content:"";width:8px;height:8px;border-radius:50%;background:#1BA672;box-shadow:0 0 0 0 rgba(27,166,114,.6);animation:pulse 1.6s infinite}' +
+    '@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(27,166,114,0)}100%{box-shadow:0 0 0 0 rgba(27,166,114,0)}}' +
+    '.ox{display:flex;gap:10px}.ox button{flex:1;font-size:28px;padding:10px 0;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}' +
+    '.ox .o{background:linear-gradient(#ff7fa3,#e5486f)}.ox .x{background:linear-gradient(#7d9bff,#4a6cf7)}' +
+    '.mine{outline:3px solid #222;outline-offset:2px}.dark .mine{outline-color:#fff}' +
+    '.legend{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-top:14px}' +
+    '.legend .lo{color:#e5486f}.legend .lx{color:#4a6cf7}' +
+    '.tube{position:relative;margin-top:6px;height:64px}' +
+    '.tube canvas{display:block;width:100%;height:64px}' +
+    '.tilt{margin:8px 0 0;font-weight:700;text-align:center;min-height:1.6em}' +
+    '</' + 'style><div class="wrap"><div class="card oxc"></div><div class="card gbc"></div></div>';
+  var wrap = root.querySelector('.wrap');
+  function theme() {
+    try { wrap.classList.toggle('dark', lum(pageBg()) < 0.4); wrap.style.setProperty('--a', accent()); } catch (e) {}
+  }
+
+  function flagKey(k) { return 'sb-done:' + k + ':' + C.url; }
+  var mem = {};
+  function getFlag(k) { if (PREVIEW) return mem[k]; try { return localStorage.getItem(flagKey(k)); } catch (e) { return mem[k]; } }
+  function setFlag(k, v) { mem[k] = v; if (PREVIEW) return; try { localStorage.setItem(flagKey(k), v); } catch (e) {} }
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function time(v) {
+    var d = new Date(v); if (isNaN(d)) return '';
+    function p(n) { return (n < 10 ? '0' : '') + n; }
+    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+  function norm(list) {
+    if (!Array.isArray(list)) throw new Error('bad');
+    return list.map(function (r) { var o = {}; for (var k in r) o[String(k).trim()] = r[k]; return o; });
+  }
+  var demo = { O: 6, X: 3, '방명록': [{ '시간': new Date().toISOString(), '닉네임': '예시 방문자', '내용': '미리보기용 예시 글이에요. 실제 페이지에서는 방문자가 남긴 글이 보여요.' }] };
+  function api(q) { return C.url + (C.url.indexOf('?') < 0 ? '?' : '&') + q; }
+  function load(sheet) {
+    if (PREVIEW) return Promise.resolve(demo[sheet].slice());
+    return fetch(api('sheet=' + encodeURIComponent(sheet))).then(function (r) { return r.json(); }).then(norm);
+  }
+  function loadCount() {
+    if (PREVIEW) return Promise.resolve({ O: demo.O, X: demo.X });
+    return fetch(api('count=OX')).then(function (r) { return r.json(); }).then(function (c) {
+      if (!c || typeof c.O !== 'number') throw new Error('bad'); return c;
+    });
+  }
+  // 저장 요청: 서버가 바쁘면 잠시 기다렸다가 최대 3번까지 다시 보내기
+  function send(data, tries) {
+    if (PREVIEW) return Promise.reject(new Error('preview'));
+    tries = tries || 0;
+    return fetch(C.url, { method: 'POST', body: JSON.stringify(data) }).then(function (r) { return r.text(); }).then(function (t) {
+      if (t.indexOf('"ok"') < 0) throw new Error('busy'); return t;
+    }).catch(function (e) {
+      if (tries >= 3) throw e;
+      return new Promise(function (ok) { setTimeout(ok, 1500 * (tries + 1) + Math.random() * 1500); }).then(function () { return send(data, tries + 1); });
+    });
+  }
+  // 주기적으로 다시 불러오기: 실패하면 간격을 늘리고, 탭이 안 보이면 쉬기
+  function poll(fn, base) {
+    var fails = 0;
+    function next() { setTimeout(tick, base * Math.min(5, 1 + fails) + Math.random() * 2000); }
+    function tick() {
+      if (document.hidden) { next(); return; }
+      Promise.resolve(fn()).then(function (ok) { fails = ok === false ? fails + 1 : 0; next(); }, function () { fails++; next(); });
+    }
+    next();
+  }
+  function slow(m) { setTimeout(function () { if (m.textContent === '저장 중…') m.textContent = '저장 중… 지금 참여하는 사람이 많아서 조금 걸려요. 창을 닫지 말고 기다려 주세요.'; }, 4000); }
+  function failText(e) {
+    return e && e.message === 'preview' ? '미리보기에서는 저장되지 않아요. GitHub에 올린 뒤 시험해요.' : '서버와 연결하지 못했어요. 잠시 뒤 다시 눌러 보세요.';
+  }
+
+  function placeAndTheme() { place(); theme(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', placeAndTheme); else placeAndTheme();
+  window.addEventListener('load', function () { placeAndTheme(); setTimeout(placeAndTheme, 500); });
+
+  buildOX(root.querySelector('.oxc'));
+  buildGB(root.querySelector('.gbc'));
+
+  // ---------- OX 투표: 액체 게이지 ----------
+  function buildOX(card) {
+    card.appendChild(el('h3', '', 'Q. ' + (C.q || '')));
+    var box = el('div', 'ox'); var bo = el('button', 'o', 'O'); var bx = el('button', 'x', 'X');
+    box.appendChild(bo); box.appendChild(bx);
+    var msg = el('p', 'msg');
+    var lg = el('div', 'legend'); var lo = el('span', 'lo', 'O 0명'); var lx = el('span', 'lx', 'X 0명'); lg.appendChild(lo); lg.appendChild(lx);
+    var tube = el('div', 'tube'); var cv = el('canvas'); tube.appendChild(cv);
+    var tilt = el('p', 'tilt');
+    var top = el('div', 'top'); var count = el('span', 'live', '불러오는 중…'); var re = el('button', 're', '↻ 새로고침');
+    top.appendChild(count); top.appendChild(re);
+    [box, msg, lg, tube, tilt, top].forEach(function (x) { card.appendChild(x); });
+
+    var o = 0, x = 0, target = 0.5, pos = 0.5, vel = 0, t0 = 0, running = false, seen = true;
+    var bubbles = [];
+    for (var i = 0; i < 14; i++) bubbles.push({ s: i % 2, x: Math.random(), y: Math.random(), r: 1 + Math.random() * 2.2, v: 0.15 + Math.random() * 0.35 });
+    var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function mark() {
+      var f = getFlag('OX'); if (!f) return;
+      bo.disabled = bx.disabled = true;
+      (f === 'O' ? bo : bx).classList.add('mine');
+      msg.textContent = '내 선택: ' + f + ' · 참여해 줘서 고마워요!';
+    }
+    mark();
+    function setCounts(no, nx) {
+      o = no; x = nx;
+      var n = o + x;
+      target = n ? o / n : 0.5;
+      lo.textContent = 'O ' + o + '명'; lx.textContent = 'X ' + x + '명';
+      count.textContent = n ? '실시간 · 총 ' + n + '명 참여' : '실시간 · 아직 아무도 투표하지 않았어요';
+      tilt.textContent = !n ? '첫 번째로 눌러 보세요!' : o > x ? 'O 쪽으로 기울었어요' : o < x ? 'X 쪽으로 기울었어요' : '팽팽해요!';
+      kick();
+    }
+    function show(c) {
+      if (c.O !== o || c.X !== x || count.textContent.indexOf('불러오는') === 0) setCounts(c.O, c.X);
+    }
+    var busy = false;
+    function refresh() {
+      if (busy) return true; busy = true;
+      return loadCount().then(function (c) { busy = false; show(c); return true; }, function () { busy = false; if (!(o + x)) count.textContent = '결과를 불러오지 못했어요. 잠시 뒤 다시 시도해요.'; return false; });
+    }
+    re.addEventListener('click', refresh);
+    function vote(v) {
+      if (getFlag('OX')) return;
+      bo.disabled = bx.disabled = true; msg.textContent = '저장 중…'; slow(msg);
+      if (PREVIEW) { msg.textContent = failText(new Error('preview')); bo.disabled = bx.disabled = false; return; }
+      send({ sheet: 'OX', '답': v }).then(function () { setFlag('OX', v); mark(); setCounts(o + (v === 'O' ? 1 : 0), x + (v === 'X' ? 1 : 0)); setTimeout(refresh, 1500); },
+        function (e) { msg.textContent = failText(e); bo.disabled = bx.disabled = false; });
+    }
+    bo.addEventListener('click', function () { vote('O'); });
+    bx.addEventListener('click', function () { vote('X'); });
+
+    // 그리기
+    var ctx = cv.getContext && cv.getContext('2d');
+    function size() {
+      var w = cv.clientWidth || 300, h = 64, d = window.devicePixelRatio || 1;
+      if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); }
+      return { w: w, h: h, d: d };
+    }
+    function capsule(c, x0, y0, w, h) {
+      var r = h / 2;
+      c.beginPath(); c.moveTo(x0 + r, y0); c.lineTo(x0 + w - r, y0); c.arc(x0 + w - r, y0 + r, r, -Math.PI / 2, Math.PI / 2);
+      c.lineTo(x0 + r, y0 + h); c.arc(x0 + r, y0 + r, r, Math.PI / 2, Math.PI * 1.5); c.closePath();
+    }
+    function liquid(c, x0, y0, w, h, edge, left, cols) {
+      var g = c.createLinearGradient(0, y0, 0, y0 + h);
+      g.addColorStop(0, cols[0]); g.addColorStop(0.45, cols[1]); g.addColorStop(1, cols[2]);
+      c.beginPath();
+      var steps = 24, k;
+      if (left) { c.moveTo(x0 - 2, y0 - 2); for (k = 0; k <= steps; k++) c.lineTo(edge(y0 + h * k / steps), y0 + h * k / steps); c.lineTo(x0 - 2, y0 + h + 2); }
+      else { c.moveTo(x0 + w + 2, y0 - 2); for (k = 0; k <= steps; k++) c.lineTo(edge(y0 + h * k / steps), y0 + h * k / steps); c.lineTo(x0 + w + 2, y0 + h + 2); }
+      c.closePath(); c.fillStyle = g; c.fill();
+    }
+    function frame(ts) {
+      if (!ctx) return;
+      if (!t0) t0 = ts;
+      var t = (ts - t0) / 1000;
+      vel += (target - pos) * 0.018; vel *= 0.9; pos += vel;
+      var S = size(), w = S.w, h = S.h, c = ctx;
+      c.setTransform(S.d, 0, 0, S.d, 0, 0); c.clearRect(0, 0, w, h);
+      var pad = 3, X0 = pad, Y0 = pad, W = w - pad * 2, H = h - pad * 2;
+      // 유리관 그림자
+      c.save(); capsule(c, X0, Y0 + 2, W, H); c.fillStyle = 'rgba(0,0,0,.10)'; c.fill(); c.restore();
+      c.save(); capsule(c, X0, Y0, W, H); c.clip();
+      c.fillStyle = '#e9e9f1'; c.fillRect(X0, Y0, W, H);
+      var amp = calm ? 1 : 4.5 + Math.min(12, Math.abs(vel) * 1000);
+      var lean = Math.max(-18, Math.min(18, vel * 2600));
+      var bx0 = X0 + W * pos;
+      function edge(y) {
+        var u = (y - Y0) / H;
+        return bx0 + Math.sin(u * 6.2 + t * 3.1) * amp * 0.6 + Math.sin(u * 11 - t * 4.7) * amp * 0.4 + (u - 0.5) * lean;
+      }
+      liquid(c, X0, Y0, W, H, edge, true, ['#ff9dbb', '#e5486f', '#a3224a']);
+      liquid(c, X0, Y0, W, H, edge, false, ['#9fb5ff', '#4a6cf7', '#2a3fb0']);
+      // 앞쪽 물결(반투명): 겹쳐 흐르는 입체감
+      function edge2(y) { var u = (y - Y0) / H; return edge(y) + Math.sin(u * 4 - t * 2.3) * (calm ? 1 : 7); }
+      c.globalAlpha = 0.35;
+      liquid(c, X0, Y0, W, H, edge2, true, ['#ffc2d4', '#f06b90', '#c23a62']);
+      liquid(c, X0, Y0, W, H, edge2, false, ['#c6d3ff', '#6f8bff', '#3b52c9']);
+      c.globalAlpha = 1;
+      // 경계 거품
+      c.beginPath(); for (var k = 0; k <= 24; k++) { var yy = Y0 + H * k / 24; if (k) c.lineTo(edge(yy), yy); else c.moveTo(edge(yy), yy); }
+      c.strokeStyle = 'rgba(255,255,255,.75)'; c.lineWidth = 2.5; c.stroke();
+      // 거품 방울
+      bubbles.forEach(function (b) {
+        if (!calm) { b.y -= b.v * 0.012; if (b.y < -0.1) { b.y = 1.1; b.x = Math.random(); } }
+        var bx = b.s ? X0 + W * pos + (W * (1 - pos)) * b.x : X0 + W * pos * b.x;
+        var by = Y0 + H * b.y + Math.sin(t * 2 + b.x * 9) * 1.5;
+        if (Math.abs(bx - edge(by)) < 6) return;
+        c.beginPath(); c.arc(bx, by, b.r, 0, Math.PI * 2); c.fillStyle = 'rgba(255,255,255,.45)'; c.fill();
+      });
+      // 유리 입체감: 위쪽 반사광, 아래쪽 그림자
+      var gl = c.createLinearGradient(0, Y0, 0, Y0 + H);
+      gl.addColorStop(0, 'rgba(255,255,255,.55)'); gl.addColorStop(0.28, 'rgba(255,255,255,.08)'); gl.addColorStop(0.62, 'rgba(255,255,255,0)'); gl.addColorStop(1, 'rgba(0,0,0,.22)');
+      c.fillStyle = gl; c.fillRect(X0, Y0, W, H);
+      c.beginPath(); c.moveTo(X0 + H * 0.5, Y0 + H * 0.2); c.lineTo(X0 + W - H * 0.5, Y0 + H * 0.2);
+      c.strokeStyle = 'rgba(255,255,255,.55)'; c.lineWidth = 3; c.lineCap = 'round'; c.stroke();
+      // 가운데 기준선
+      c.beginPath(); c.setLineDash([3, 4]); c.moveTo(X0 + W / 2, Y0 + 4); c.lineTo(X0 + W / 2, Y0 + H - 4);
+      c.strokeStyle = 'rgba(255,255,255,.7)'; c.lineWidth = 1.5; c.stroke(); c.setLineDash([]);
+      // 글자
+      var n = o + x, po = n ? Math.round(o / n * 100) : 50;
+      c.font = '700 16px system-ui, sans-serif'; c.textBaseline = 'middle'; c.fillStyle = '#fff';
+      c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 3;
+      if (W * pos > 70) { c.textAlign = 'left'; c.fillText('O ' + (n ? po + '%' : ''), X0 + 18, Y0 + H / 2); }
+      if (W * (1 - pos) > 70) { c.textAlign = 'right'; c.fillText((n ? 100 - po + '% ' : '') + 'X', X0 + W - 18, Y0 + H / 2); }
+      c.shadowBlur = 0;
+      c.restore();
+      c.save(); capsule(c, X0, Y0, W, H); c.strokeStyle = 'rgba(0,0,0,.15)'; c.lineWidth = 1; c.stroke(); c.restore();
+      var still = Math.abs(target - pos) < 0.0005 && Math.abs(vel) < 0.00005;
+      if (seen && (!calm || !still)) requestAnimationFrame(frame); else running = false;
+    }
+    function kick() { if (!running && ctx) { running = true; requestAnimationFrame(frame); } }
+    if (window.IntersectionObserver) new IntersectionObserver(function (en) { seen = en[0].isIntersecting; if (seen) kick(); }).observe(tube);
+    window.addEventListener('resize', kick);
+    kick();
+    refresh();
+    // 실시간: 화면에 보이는 동안 몇 초마다 개수를 다시 불러오기(폴링)
+    poll(function () {
+      if (!seen) return true;
+      if (PREVIEW) { if (Math.random() < 0.5) demo.O++; else demo.X++; }
+      return refresh();
+    }, PREVIEW ? 2500 : 6000);
+  }
+
+  // ---------- 방명록 ----------
+  function buildGB(card) {
+    card.appendChild(el('h3', '', C.title || '방명록'));
+    var form = el('div', 'row');
+    var nick = el('input'); nick.placeholder = '닉네임 (10자까지)'; nick.maxLength = 10;
+    var text = el('textarea'); text.placeholder = '남기고 싶은 말 (100자까지)'; text.maxLength = 100;
+    var btn = el('button', '', '남기기');
+    form.appendChild(nick); form.appendChild(text); form.appendChild(btn);
+    var msg = el('p', 'msg');
+    var top = el('div', 'top'); var count = el('span', '', '불러오는 중…'); var re = el('button', 're', '↻ 새로고침');
+    top.appendChild(count); top.appendChild(re);
+    var ul = el('ul', 'list');
+    [form, msg, top, ul].forEach(function (x) { card.appendChild(x); });
+    function lock() { form.style.display = 'none'; msg.textContent = '방명록을 남겼어요. 고마워요!'; }
+    if (getFlag('GB')) lock();
+    var last = -1;
+    function show(list) {
+      var key = list.length + '|' + JSON.stringify(list[list.length - 1] || '');
+      if (key === last) return; last = key;
+      ul.innerHTML = '';
+      count.textContent = list.length >= 50 ? '최근 방명록 50개' : '방명록 ' + list.length + '개';
+      list.slice().reverse().forEach(function (r) {
+        var li = el('li'); li.appendChild(el('b', '', r['닉네임'] || '익명')); li.appendChild(el('small', '', time(r['시간'])));
+        li.appendChild(el('p', '', r['내용'] || '')); ul.appendChild(li);
+      });
+    }
+    function refresh(force) { if (force) last = -1; return load('방명록').then(function (l) { show(l); return true; }, function () { if (last === -1) count.textContent = '목록을 불러오지 못했어요. 잠시 뒤 다시 시도해요.'; return false; }); }
+    re.addEventListener('click', function () { count.textContent = '불러오는 중…'; refresh(true); });
+    btn.addEventListener('click', function () {
+      var n = nick.value.trim(), t = text.value.trim();
+      if (!n || !t) { msg.textContent = '닉네임과 내용을 모두 써 주세요.'; return; }
+      btn.disabled = true; msg.textContent = '저장 중…'; slow(msg);
+      send({ sheet: '방명록', '닉네임': n, '내용': t }).then(function () { setFlag('GB', '1'); lock(); refresh(true); }, function (e) { msg.textContent = failText(e); btn.disabled = false; });
+    });
+    refresh(true);
+    if (!PREVIEW) poll(function () { return refresh(); }, 20000);
+  }
+})();
+
+</script><!-- ▲ 방명록·OX 투표 끝 ▲ -->
+
+        <!-- Random Cheer -->
+        <section class="section-box cheer-box">
+            <div class="section-title" style="justify-content: center;">💌 우주에서 온 랜덤 응원 한마디</div>
+            <div class="cheer-display" id="cheer-display">버튼을 눌러 오늘의 우주 에너지를 받아보세요! 🚀</div>
+            <button class="btn-primary" onclick="getRandomCheer()">응원 메시지 뽑기 ✨</button>
+        </section>
+
+        <!-- 10-Second Click Mini Game -->
+        <section class="section-box game-box">
+            <div class="section-title" style="justify-content: center;">⚡ 10초 핑거 스피드 미니게임</div>
+            <p style="color: var(--text-sub); margin-bottom: 20px;">10초 동안 행성을 최대한 많이 클릭하여 광속으로 이동하세요!</p>
+            
+            <div class="game-stats">
+                <div class="stat-item">남은 시간: <span id="game-timer">10</span>초</div>
+                <div class="stat-item">클릭 수: <span id="game-score">0</span>회</div>
+            </div>
+
+            <button class="click-target-btn" id="click-btn" onclick="handleGameClick()">
+                <span>🪐</span>
+                <span id="click-btn-text">START!</span>
+            </button>
+
+            <div class="game-result" id="game-result"></div>
+        </section>
+
+        <footer>
+            <p>© 2026 Lee Seung-Hoon. Crafted with ✨ and Pure Web Technologies.</p>
+        </footer>
+    </div>
+    <a class="st-btn" href="about.html">다음 페이지</a>
+
+    <!-- JavaScript Code Logic -->
+    <script>
+        /* ===================================================
+         * 1. Dynamic Space Background Canvas Animation
+         * =================================================== */
+        const spaceCanvas = document.getElementById('space-canvas');
+        const ctxSpace = spaceCanvas.getContext('2d');
+        let stars = [];
+        let numStars = 150;
+
+        function resizeSpaceCanvas() {
+            spaceCanvas.width = window.innerWidth;
+            spaceCanvas.height = window.innerHeight;
+            initStars();
+        }
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * spaceCanvas.width,
+                    y: Math.random() * spaceCanvas.height,
+                    radius: Math.random() * 1.8 + 0.2,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005,
+                    dir: Math.random() > 0.5 ? 1 : -1
+                });
+            }
+        }
+
+        function animateStars() {
+            ctxSpace.clearRect(0, 0, spaceCanvas.width, spaceCanvas.height);
+            
+            // Draw Pink Stars
+            for (let i = 0; i < stars.length; i++) {
+                let s = stars[i];
+                s.alpha += s.speed * s.dir;
+                if (s.alpha >= 1) { s.alpha = 1; s.dir = -1; }
+                if (s.alpha <= 0.1) { s.alpha = 0.1; s.dir = 1; }
+
+                ctxSpace.beginPath();
+                ctxSpace.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctxSpace.fillStyle = document.body.getAttribute('data-theme') === 'light' 
+                    ? `rgba(232, 67, 147, ${s.alpha * 0.7})` 
+                    : `rgba(255, 200, 230, ${s.alpha})`;
+                ctxSpace.fill();
+            }
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', resizeSpaceCanvas);
+        resizeSpaceCanvas();
+        animateStars();
+
+        /* ===================================================
+         * 2. Mouse Sparkle Trail Canvas Animation
+         * =================================================== */
+        const sparkleCanvas = document.getElementById('sparkle-canvas');
+        const ctxSparkle = sparkleCanvas.getContext('2d');
+        let sparkles = [];
+
+        function resizeSparkleCanvas() {
+            sparkleCanvas.width = window.innerWidth;
+            sparkleCanvas.height = window.innerHeight;
+        }
+
+        class Sparkle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = (Math.random() - 0.5) * 2;
+                this.speedY = (Math.random() - 0.5) * 2;
+                // Pink & Magenta Palette for sparkle trail
+                this.color = `hsl(${Math.random() * 50 + 310}, 100%, 75%)`;
+                this.life = 1;
+                this.decay = Math.random() * 0.03 + 0.015;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= this.decay;
+                if (this.size > 0.2) this.size -= 0.1;
+            }
+
+            draw() {
+                ctxSparkle.save();
+                ctxSparkle.globalAlpha = Math.max(this.life, 0);
+                ctxSparkle.fillStyle = this.color;
+                ctxSparkle.beginPath();
+                ctxSparkle.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctxSparkle.fill();
+                ctxSparkle.restore();
+            }
+        }
+
+        function createSparkles(e) {
+            let x = e.clientX || (e.touches && e.touches[0].clientX);
+            let y = e.clientY || (e.touches && e.touches[0].clientY);
+            if (x !== undefined && y !== undefined) {
+                for (let i = 0; i < 2; i++) {
+                    sparkles.push(new Sparkle(x, y));
+                }
+            }
+        }
+
+        function animateSparkles() {
+            ctxSparkle.clearRect(0, 0, sparkleCanvas.width, sparkleCanvas.height);
+            for (let i = 0; i < sparkles.length; i++) {
+                sparkles[i].update();
+                sparkles[i].draw();
+                if (sparkles[i].life <= 0) {
+                    sparkles.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(animateSparkles);
+        }
+
+        window.addEventListener('resize', resizeSparkleCanvas);
+        window.addEventListener('mousemove', createSparkles);
+        window.addEventListener('touchmove', createSparkles);
+        resizeSparkleCanvas();
+        animateSparkles();
+
+        /* ===================================================
+         * 3. Theme Toggle (Dark / Light Mode)
+         * =================================================== */
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        let isDark = true;
+
+        themeToggleBtn.addEventListener('click', () => {
+            isDark = !isDark;
+            if (isDark) {
+                document.body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+            }
+        });
+
+        /* ===================================================
+         * 4. Visitor Welcome Greeting Logic
+         * =================================================== */
+        const btnWelcome = document.getElementById('btn-welcome');
+        const visitorInput = document.getElementById('visitor-name');
+        const welcomeMsg = document.getElementById('welcome-msg');
+
+        function greetVisitor() {
+            const name = visitorInput.value.trim();
+            if (name) {
+                welcomeMsg.textContent = `🚀 [탑승 승인] 반가워요, ${name}님! 이승훈의 은하수 탐험을 즐겨주세요! ✨`;
+                visitorInput.value = '';
+            } else {
+                welcomeMsg.textContent = `⚠️ 이름을 입력해주셔야 우주선 승인이 완료됩니다!`;
+            }
+        }
+
+        btnWelcome.addEventListener('click', greetVisitor);
+        visitorInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') greetVisitor();
+        });
+
+        /* ===================================================
+         * 5. 3D Card Flip Logic
+         * =================================================== */
+        function flipCard(cardElement) {
+            cardElement.classList.toggle('flipped');
+        }
+
+        /* ===================================================
+         * 6. OX Quiz Logic & Effects
+         * =================================================== */
+        const quizFeedback = document.getElementById('quiz-feedback');
+        const quizSection = document.getElementById('quiz-section');
+
+        function checkQuiz(userAnswer) {
+            // Correct Answer is True (O)
+            if (userAnswer === true) {
+                quizFeedback.style.color = '#1dd1a1';
+                quizFeedback.textContent = '🎉 정답입니다! 이승훈의 장비 점수는 언제나 최상위권입니다!';
+                createConfetti();
+            } else {
+                quizFeedback.style.color = '#ff6b6b';
+                quizFeedback.textContent = '😭 아쉽네요! 제 안의 챔피언 본능이 울고 있습니다. 다시 도전해보세요!';
+                quizSection.classList.remove('wrong-shake');
+                void quizSection.offsetWidth; // Trigger reflow for animation restart
+                quizSection.classList.add('wrong-shake');
+            }
+        }
+
+        // Simple Particle Burst effect for Quiz Success
+        function createConfetti() {
+            const rect = quizSection.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 40; i++) {
+                const p = new Sparkle(centerX, centerY);
+                p.speedX = (Math.random() - 0.5) * 12;
+                p.speedY = (Math.random() - 0.5) * 12;
+                p.size = Math.random() * 8 + 4;
+                p.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                p.decay = 0.02;
+                sparkles.push(p);
+            }
+        }
+
+        /* ===================================================
+         * 7. Random Cheer Generator (10+ Messages)
+         * =================================================== */
+        const cheerList = [
+            "🌟 당신이 가는 모든 길에 별빛 같은 행운이 함께하길!",
+            "🚀 당신의 능력은 이 넓은 우주보다 더욱 무한합니다!",
+            "🐱 오늘 하루 고양이처럼 평화롭고 포근하게 보내세요!",
+            "🎮 당신의 인생이라는 게임에서 오늘의 퀘스트도 클리어!",
+            "💫 별빛이 당신의 꿈을 환하게 밝혀주고 있습니다.",
+            "☕ 잠깐 쉬어가도 괜찮아요, 우주는 언제나 당신 편입니다.",
+            "🪐 은하수 너머에서 가장 멋진 사람, 바로 당신입니다!",
+            "✨ 작은 시도들이 모여 거대한 별처럼 빛날 거예요.",
+            "🏆 당신은 이미 인생 최고의 플레이어입니다!",
+            "🌌 지치고 힘들 땐 밤하늘을 보며 에너지를 충전하세요!",
+            "🌈 오늘 하루도 당신의 우주가 미소로 가득 차길 바랄게요!"
+        ];
+
+        function getRandomCheer() {
+            const cheerDisplay = document.getElementById('cheer-display');
+            const randomIndex = Math.floor(Math.random() * cheerList.length);
+            cheerDisplay.style.opacity = '0';
+            setTimeout(() => {
+                cheerDisplay.textContent = cheerList[randomIndex];
+                cheerDisplay.style.opacity = '1';
+                cheerDisplay.style.transition = 'opacity 0.3s ease';
+            }, 150);
+        }
+
+        /* ===================================================
+         * 8. 10-Second Finger Speed Mini Game
+         * =================================================== */
+        let gameScore = 0;
+        let timeLeft = 10;
+        let gameTimer = null;
+        let isGaming = false;
+
+        const timerDisplay = document.getElementById('game-timer');
+        const scoreDisplay = document.getElementById('game-score');
+        const clickBtnText = document.getElementById('click-btn-text');
+        const gameResult = document.getElementById('game-result');
+
+        function handleGameClick() {
+            if (!isGaming) {
+                // Start Game
+                isGaming = true;
+                gameScore = 1;
+                timeLeft = 10;
+                scoreDisplay.textContent = gameScore;
+                timerDisplay.textContent = timeLeft;
+                clickBtnText.textContent = 'CLICK!!';
+                gameResult.textContent = '🔥 광속으로 타격하세요!';
+
+                gameTimer = setInterval(() => {
+                    timeLeft--;
+                    timerDisplay.textContent = timeLeft;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(gameTimer);
+                        endGame();
+                    }
+                }, 1000);
+            } else {
+                // Increment Score
+                gameScore++;
+                scoreDisplay.textContent = gameScore;
+            }
+        }
+
+        function endGame() {
+            isGaming = false;
+            clickBtnText.textContent = 'RESTART';
+            
+            let rank = '';
+            if (gameScore >= 70) rank = '👑 우주 광속급 손가락! (갓티어)';
+            else if (gameScore >= 50) rank = '🚀 은하수 워프급 스피드!';
+            else if (gameScore >= 30) rank = '🛸 우주선 표준 순항 스피드!';
+            else rank = '🐢 우주달팽이 레이싱 선수!';
+
+            gameResult.textContent = `게임 종료! 최종 ${gameScore}회 달성! 랭크: ${rank}`;
+        }
+    </script>
+</body></html>
